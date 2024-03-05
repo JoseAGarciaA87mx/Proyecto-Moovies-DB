@@ -22,11 +22,11 @@
     <div class="main_frame">
         <h1 class="header">Registra una Pelicula</h1>
         <div clas ="card">            
-            <form action="{{route(peliculas.store)}}">
+            <form action="{{route('peliculas.store', )}}">
                 @csrf
                 <div class = "inciso">
                     <label for="title">Título</label>
-                    <input type="text" name="title" id="title">
+                    <input type="text" name="title" id="title"><br>
                 </div>
                 <!--
                 <div class = "dropdown">
@@ -35,27 +35,27 @@
                              @foreach ($directors as $director)
                                 <option value="{{$director->id}}">{{$director->dir_name}}</option>
                              @endforeach
-                        </select>
+                        </select><br>
                 </div> -->
                 <div class = "inciso">
                     <label for="studio">Productora</label>
-                    <input type="text" name="studio" id="studio">
+                    <input type="text" name="studio" id="studio"><br>
                 </div>
                 <div class = "inciso">
                     <label for="length">Duración</label>
-                    <input type="number" name="length" id="length">
+                    <input type="number" name="length" id="length"><br>
                 </div>
                 <div class = "inciso">
                     <label for="genre">Género</label>
-                    <input type="text" name="genre" id="genre">
+                    <input type="text" name="genre" id="genre"><br>
                 </div>
                 <div class = "inciso">
-                    <label for="year">Título</label>
-                    <input type="number" name="year" id="year" min="1900" max="2100">
+                    <label for="year">Año de Estreno</label>
+                    <input type="number" name="year" id="year" min="1900" max="2100"> <br>
                 </div>
                 <div class = "inciso">
-                    <label for="country">Título</label>
-                    <input type="text" name="country" id="country">
+                    <label for="country">País de Origen</label>
+                    <input type="text" name="country" id="country"> <br>
                 </div>
 
                 <input type="submit" value="Registrar Película" class="button1">

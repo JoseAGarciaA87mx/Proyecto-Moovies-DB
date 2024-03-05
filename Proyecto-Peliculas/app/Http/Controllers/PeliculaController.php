@@ -13,7 +13,7 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::get();
+        $peliculas = Pelicula::get(['id','peli_title', 'peli_genre', 'peli_year', 'peli_length']);
 
         return view('admin.peliculas.index', compact('peliculas'));
     }
@@ -23,8 +23,8 @@ class PeliculaController extends Controller
      */
     public function create()
     {
-        //$peliculas = Pelicula::get();
-        return view('admin.peliculas.create',/*compact('peliculas')*/);
+        //$directores = Director::get();
+        return view('admin.peliculas.create',/*compact('directores')*/);
     }
 
     /**
@@ -58,9 +58,10 @@ class PeliculaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pelicula $pelicula)
+    public function show($id)
     {
-        //
+        $pelicula = Pelicula::find($id);
+        return view('admin.peliculas.manage', compact('pelicula'));
     }
 
     /**
@@ -68,8 +69,8 @@ class PeliculaController extends Controller
      */
     public function edit(Pelicula $pelicula)
     {
-        $title = "Modifica la Película";
-        return view('admin.peliculas.create',compact('pelicula', 'title'));
+        $title = "Administra la Película";
+        return view('admin.peliculas.manage',compact('pelicula', 'title'));
     }
 
     /**
@@ -77,7 +78,25 @@ class PeliculaController extends Controller
      */
     public function update(Request $request, Pelicula $pelicula)
     {
-        //
+        $this->validate($request, [
+            'title'=>'required|max:255',
+            'studio'=>'required|max:255',
+            'length'=>'required|integer',
+            'genre'=>'required|max:255|alpha_num',
+            'year'=>'required|integer|min:1900|max:2100',
+            'country'=>'required|max:100|alpha_num',
+        ]);
+
+        $pelicula->peli_title = $request->input('title');
+        $pelicula->peli_studio = $request->input('studio');
+        $pelicula->peli_length = $request->input('length');
+        $pelicula->peli_genre = $request->input('genre');
+        $pelicula->peli_year = $request->input('year');
+        $pelicula->peli_country = $request->input('country');
+
+        $pelicula->save();
+
+        return view('admin.peliculas.show');
     }
 
     /**
@@ -85,6 +104,7 @@ class PeliculaController extends Controller
      */
     public function destroy(Pelicula $pelicula)
     {
-        //
+        $pelicula->delete();
+        return view('admin.peliculas.idex');
     }
 }
