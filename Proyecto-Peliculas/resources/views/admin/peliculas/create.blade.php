@@ -21,22 +21,19 @@
 <body>
     <div class="main_frame">
         <h1 class="header">Registra una Pelicula</h1>
-        <div clas ="card">            
-            <form action="{{route('peliculas.store', )}}">
+        <div clas ="card">   
+            <div class="card"> 
+                <a href="{{route('peliculas.index')}}">Todas las Películas</a>
+            </div>         
+            <form action="{{route('peliculas.store')}}" method="POST">
                 @csrf
                 <div class = "inciso">
                     <label for="title">Título</label>
                     <input type="text" name="title" id="title"><br>
                 </div>
-                <!--
-                <div class = "dropdown">
-                    <label for="director_id">Director</label>
-                        <select name="director_id" id="director_id">
-                             @foreach ($directors as $director)
-                                <option value="{{$director->id}}">{{$director->dir_name}}</option>
-                             @endforeach
-                        </select><br>
-                </div> -->
+                
+                <!-- Aquí Pongo lo de Directores-->
+
                 <div class = "inciso">
                     <label for="studio">Productora</label>
                     <input type="text" name="studio" id="studio"><br>

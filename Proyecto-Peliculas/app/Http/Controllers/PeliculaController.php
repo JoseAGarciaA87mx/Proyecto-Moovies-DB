@@ -23,6 +23,15 @@ class PeliculaController extends Controller
      */
     public function create()
     {
+        /* poner en la view: admin.peliculas.edit y admin.peliculas.manage
+                <div class = "dropdown">
+                    <label for="director_id">Director</label>
+                        <select name="director_id" id="director_id">
+                             @foreach ($directors as $director)
+                                <option value="{{$director->id}}">{{$director->dir_name}}</option>
+                             @endforeach
+                        </select><br>
+                </div> */
         //$directores = Director::get();
         return view('admin.peliculas.create',/*compact('directores')*/);
     }
@@ -32,13 +41,14 @@ class PeliculaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $this->validate($request, [
             'title'=>'required|max:255',
             'studio'=>'required|max:255',
             'length'=>'required|integer',
-            'genre'=>'required|max:255|alpha_num',
+            'genre'=>'required|max:255',
             'year'=>'required|integer|min:1900|max:2100',
-            'country'=>'required|max:100|alpha_num',
+            'country'=>'required|max:100',
         ]);
 
         $new_movie = new Pelicula();
@@ -61,7 +71,7 @@ class PeliculaController extends Controller
     public function show($id)
     {
         $pelicula = Pelicula::find($id);
-        return view('admin.peliculas.manage', compact('pelicula'));
+        return view('admin.peliculas.show', compact('pelicula'));
     }
 
     /**
@@ -82,9 +92,9 @@ class PeliculaController extends Controller
             'title'=>'required|max:255',
             'studio'=>'required|max:255',
             'length'=>'required|integer',
-            'genre'=>'required|max:255|alpha_num',
+            'genre'=>'required|max:255',
             'year'=>'required|integer|min:1900|max:2100',
-            'country'=>'required|max:100|alpha_num',
+            'country'=>'required|max:100',
         ]);
 
         $pelicula->peli_title = $request->input('title');
@@ -96,7 +106,7 @@ class PeliculaController extends Controller
 
         $pelicula->save();
 
-        return view('admin.peliculas.show');
+        return view('admin.peliculas.show', compact('pelicula'));
     }
 
     /**
@@ -105,6 +115,6 @@ class PeliculaController extends Controller
     public function destroy(Pelicula $pelicula)
     {
         $pelicula->delete();
-        return view('admin.peliculas.idex');
+        return redirect()->route('peliculas.index');
     }
 }
