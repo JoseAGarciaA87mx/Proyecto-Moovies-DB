@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peliculas JDB</title>
-    <!--CSS Chafa-->
-    <style>
-    .card {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
-      margin: 10px;
-      width: 200px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      color: wheat;
-      background-color: lightgreen;
-    }
-    .card2 {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      border-color: black;
-      padding: 10px;
-      margin: 10px;
-      width: 200px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      color: wheat;
-      background-color: darkolivegreen;
-    }
-  </style>
-</head>
-<body>
-    <h1 class="header">Peliculas Disponibles</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Movies') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <h1 class="header">Peliculas Disponibles</h1>
     
     <div class="card"> 
         <a href="{{route('peliculas.create')}}">Registrar Película</a>
@@ -47,5 +25,7 @@
             <a href="{{route('peliculas.show', $pelicula->id)}}" style="color: lightcoral;">Más Información</a>
         </div>
     @endforeach
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

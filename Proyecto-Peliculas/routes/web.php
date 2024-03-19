@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('peliculas', PeliculaController::class);
-
-Route::resource('dircetors', DirectorController::class);
+Route::get('/demo', function () {
+    return view('demo');
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -31,4 +31,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('peliculas', PeliculaController::class);
+
+    Route::resource('dircetors', DirectorController::class);
 });

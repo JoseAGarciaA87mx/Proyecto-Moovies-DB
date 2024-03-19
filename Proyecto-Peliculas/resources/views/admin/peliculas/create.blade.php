@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peliculas JDB</title>
-    <!--CSS Chafa-->
-    <style>
-    /* Estilos opcionales para mejorar la presentación de las tarjetas */
-    .inciso {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      border-color: darkblue;
-      padding: 10px;
-      margin: 10px;
-      width: 200px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-</head>
-<body>
-    <div class="main_frame">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Registrar Pelicula') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">S
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="main_frame">
         <h1 class="header">Registra una Pelicula</h1>
         <div clas ="card">   
             <div class="card"> 
@@ -60,5 +49,7 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
