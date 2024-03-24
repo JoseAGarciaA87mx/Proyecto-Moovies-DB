@@ -27,7 +27,8 @@
           </ul>
 
           <div class="iflex">
-            <a href="{{route('peliculas.show', $pelicula->id)}}" style="color: lightcoral;">Más Información</a>
+            <a href="{{route('peliculas.show', $pelicula->id)}}" style="color:lightcoral">Más Información</a>
+            <a style="color:lightblue; padding-left: 100px">Me Gusta</a>
           </div>
 
         </div>
