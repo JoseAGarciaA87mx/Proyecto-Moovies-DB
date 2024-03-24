@@ -2,11 +2,11 @@
     <x-application-logo class="block h-12 w-auto" />
 
     <h1 class="mt-8 text-2xl font-medium text-gray-900 dark:text-white">
-        Welcome to your Jetstream application!
+        Proyecto 2, powered by Jetstream.
     </h1>
 
     <p class="mt-6 text-gray-500 dark:text-gray-400 leading-relaxed">
-        Esclava del telefono, asi vivo yo.
+        Por alguna razón varias clases de Tailwind no me agarran.
     </p>
 </div>
 

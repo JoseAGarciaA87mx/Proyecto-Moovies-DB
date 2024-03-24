@@ -1,0 +1,122 @@
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton2 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ca3131;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.boton2:hover {
+    background-color: #8f2727;
+}
+
+.row-container {
+    display: flex;
+    flex-wrap: nowrap;
+    border-color: antiquewhite;
+    border-width: 2px;
+}
+
+.row-element {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.columns{
+    flex-grow: 0; 
+    flex-basis: calc(50% - 20px);
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.column2{
+    flex-grow: 3; 
+    flex-basis: calc(100% - 40px); 
+    margin-right: 20px; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.column3{
+    order: 3;
+}
+
+.poster{
+    width: 250px;
+    height: 400px;
+    padding-top: 15px;
+    background-size: cover
+}
+
+.form-container {
+    width: 500px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+
+.form-label {
+    display: block; 
+    margin-bottom: 10px; 
+}
+
+.form-input {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+    background-color: lightskyblue;
+}
+
+.form-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.iflex{
+    display: inline-flex;
+}
+
+.show-field{
+    text-align: left;
+    font-size: 20px;
+    color: white;
+    padding: 10px 20px;
+}
+
+.show-label{
+    text-align: left;
+    font-size: 20px;
+    color: lightseagreen;
+    padding: 10px 20px;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 15px;
+}

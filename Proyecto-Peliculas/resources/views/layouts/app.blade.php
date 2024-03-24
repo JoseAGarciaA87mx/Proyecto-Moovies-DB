@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="{{ asset('css\Styles.css') }}" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -32,11 +33,26 @@
                 </header>
             @endif
 
+            <div class="row-container">
+            <div class="columns">
+                <img class="element-row poster" src="{{ asset('assets/images/poster2.jpg') }}" alt="poster1">
+                <img class="element-row poster" src="{{ asset('assets/images/poster6.jpg') }}" alt="poster3">
+            </div>
+                              
             <!-- Page Content -->
-            <main>
+            <main class="column2">
                 {{ $slot }}
             </main>
+
+            <div class="columns column1">
+                <img class="element-row poster" src="{{ asset('assets/images/poster4.jpg') }}" alt="poster2">
+                <img class="element-row poster" src="{{ asset('assets/images/poster1.jpg') }}" alt="poster4">
+            </div>
+            </div>
         </div>
+        <footer style="color: white; background-color: black;">
+                Movies-Project JAGA 20214. Programación Para Internet D-12 Proyecto 2
+        </footer>
 
         @stack('modals')
 

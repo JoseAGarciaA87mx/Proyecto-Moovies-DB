@@ -5,50 +5,85 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">S
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="main_frame">
-        <h1 class="header">Registra una Pelicula</h1>
-        <div clas ="card">   
-            <div class="card"> 
-                <a href="{{route('peliculas.index')}}">Todas las Películas</a>
-            </div>         
-            <form action="{{route('peliculas.store')}}" method="POST">
-                @csrf
-                <div class = "inciso">
-                    <label for="title">Título</label>
-                    <input type="text" name="title" id="title"><br>
-                </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg text-center">
                 
-                <!-- Aquí Pongo lo de Directores-->
-
-                <div class = "inciso">
-                    <label for="studio">Productora</label>
-                    <input type="text" name="studio" id="studio"><br>
-                </div>
-                <div class = "inciso">
-                    <label for="length">Duración</label>
-                    <input type="number" name="length" id="length"><br>
-                </div>
-                <div class = "inciso">
-                    <label for="genre">Género</label>
-                    <input type="text" name="genre" id="genre"><br>
-                </div>
-                <div class = "inciso">
-                    <label for="year">Año de Estreno</label>
-                    <input type="number" name="year" id="year" min="1900" max="2100"> <br>
-                </div>
-                <div class = "inciso">
-                    <label for="country">País de Origen</label>
-                    <input type="text" name="country" id="country"> <br>
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg text-center">
+                    <h1 style="color: lightcoral; font-size: 20px;">Llena todos los campos</h1>
                 </div>
 
-                <input type="submit" value="Registrar Película" class="button1">
+                <div class="main-frame">
+                    <form class="form-container" action="{{route('peliculas.store')}}" method="POST">
+                        @csrf
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="title">Título: </label>
+                            @if($errors->has('title'))
+                                <span class="text-danger">{{  $errors->first('title') }}</span>
+                                <input class="form-input" type="text" name="title" id="title">
+                            @else
+                                <input class="form-input" type="text" name="title" id="title"  value="{{ old('title') }}">
+                            @endif                            
+                        </div>
 
-            </form>
-        </div>
-    </div>
+                        <!-- Aquí Pongo lo de Directores-->
+
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="studio">Productora: </label>
+                            @if($errors->has('studio'))
+                                <span class="text-danger">{{  $errors->first('studio') }}</span>
+                                <input class="form-input" type="text" name="studio" id="studio">
+                            @else
+                                <input class="form-input" type="text" name="studio" id="studio"  value="{{ old('studio') }}">
+                            @endif
+                        </div>
+
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="length">Duración: </label>
+                            @if($errors->has('length'))
+                                <span class="text-danger">{{ $errors->first('length') }}</span>
+                                <input class="form-input" type="number" name="length" id="length">
+                            @else
+                                <input class="form-input" type="number" name="length" id="length"  value="{{ old('length') }}">
+                            @endif
+                        </div>
+
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="genre">Género: </label>
+                            @if($errors->has('genre'))
+                                <span class="text-danger">{{ $errors->first('genre') }}</span>
+                                <input class="form-input" type="text" name="genre" id="genre">
+                            @else
+                                <input class="form-input" type="text" name="genre" id="genre"  value="{{ old('genre') }}">
+                            @endif
+                            </div>
+
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="year">Año de Estreno: </label>
+                            @if($errors->has('year'))
+                                <span class="text-danger">{{ $errors->first('year') }}</span>
+                                <input class="form-input" type="number" name="year" id="year">
+                            @else
+                                <input class="form-input" type="number" name="year" id="year"  value="{{ old('year') }}">
+                            @endif
+                        </div>
+
+                        <div class="text-base p-2">
+                            <label class="text-white form-label" for="country">País de Origen: </label>
+                            @if($errors->has('country'))
+                                <span class="text-danger">{{  $errors->first('country') }}</span>
+                                <input class="form-input" type="text" name="country" id="country">
+                            @else
+                                <input class="form-input" type="text" name="country" id="country"  value="{{ old('country') }}">
+                            @endif
+                        </div>
+
+                        <div class="boton">
+                        <button class="iflex" type="submit">Registrar <x-zondicon-film class="h-10 w-10 p-2"/></button>
+                        </div>
+                        
+                    </form>
+                </div>
             </div>
         </div>
     </div>

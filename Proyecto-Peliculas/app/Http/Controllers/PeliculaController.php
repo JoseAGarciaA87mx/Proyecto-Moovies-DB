@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Pelicula;
 use Illuminate\Database\Console\Migrations\RollbackCommand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Validation\ValidationException;
 
 class PeliculaController extends Controller
 {
@@ -42,14 +45,20 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $this->validate($request, [
-            'title'=>'required|max:255',
-            'studio'=>'required|max:255',
+
+        $validator = FacadesValidator::make($request->all(), [
+            'title'=>'required|max:100',
+            'studio'=>'required|max:100',
             'length'=>'required|integer',
-            'genre'=>'required|max:255',
+            'genre'=>'required|max:100',
             'year'=>'required|integer|min:1900|max:2100',
             'country'=>'required|max:100',
         ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
 
         $new_movie = new Pelicula();
 
@@ -62,7 +71,10 @@ class PeliculaController extends Controller
 
         $new_movie->save();
 
-        return redirect()->back();
+        $pelicula = $new_movie;
+
+        //return redirect()->back();
+        return view('admin.peliculas.show', compact('pelicula'));
     }
 
     /**
@@ -88,7 +100,7 @@ class PeliculaController extends Controller
      */
     public function update(Request $request, Pelicula $pelicula)
     {
-        $this->validate($request, [
+        $validator=FacadesValidator::make($request->all(), [
             'title'=>'required|max:255',
             'studio'=>'required|max:255',
             'length'=>'required|integer',
@@ -96,6 +108,10 @@ class PeliculaController extends Controller
             'year'=>'required|integer|min:1900|max:2100',
             'country'=>'required|max:100',
         ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $pelicula->peli_title = $request->input('title');
         $pelicula->peli_studio = $request->input('studio');
