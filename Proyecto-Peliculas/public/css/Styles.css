@@ -102,6 +102,11 @@
     display: inline-flex;
 }
 
+.index-container {
+    display: flex; 
+    flex-wrap: wrap;
+}
+
 .show-field{
     text-align: left;
     font-size: 20px;
@@ -119,4 +124,19 @@
 .text-danger {
     color: #dc3545;
     font-size: 15px;
+}
+
+.responsive-column {
+    display: block;
+}
+
+@media (max-width: 1000px) {
+    .columns {
+        display: none;
+    }
+
+    .index-container{
+        display: block; 
+        flex-wrap: nowrap;
+    }
 }

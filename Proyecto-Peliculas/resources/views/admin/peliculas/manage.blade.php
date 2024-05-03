@@ -19,7 +19,7 @@
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="title">Título:</label>
                             @error('title')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <input class="form-input" type="text" name="title" id="title" value="{{$pelicula->peli_title}}"><br>
                         </div>
@@ -29,28 +29,28 @@
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="studio">Productora:</label>
                             @error('studio')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <input class="form-input" type="text" name="studio" id="studio" , value="{{$pelicula->peli_studio}}"><br>
                         </div>
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="length">Duración:</label>
                             @error('length')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <input class="form-input" type="number" name="length" id="length" value="{{$pelicula->peli_length}}"><br>
                         </div>
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="genre">Género:</label>
                             @error('genre')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <input class="form-input" type="text" name="genre" id="genre" value="{{$pelicula->peli_genre}}"><br>
                         </div>
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="year">Año de Estreno:</label>
                             @error('year')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <input class="form-input" type="number" name="year" id="year" min="1900" max="2100" value="{{$pelicula->peli_year}}"><br>
                         </div>

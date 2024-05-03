@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelicula;
-use Illuminate\Database\Console\Migrations\RollbackCommand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
-use Illuminate\Validation\ValidationException;
 
 class PeliculaController extends Controller
 {

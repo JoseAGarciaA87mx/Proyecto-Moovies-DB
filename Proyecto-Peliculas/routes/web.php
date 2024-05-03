@@ -34,5 +34,5 @@ Route::middleware([
 
     Route::resource('peliculas', PeliculaController::class);
 
-    Route::resource('dircetors', DirectorController::class);
+    Route::resource('directors', DirectorController::class);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class DirectorController extends Controller
 {
@@ -12,7 +13,9 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        $directors = Director::get(['id', 'dir_name', 'dir_country']);
+
+        return view('admin.directors.index', compact('directors'));
     }
 
     /**
@@ -20,7 +23,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.directors.create');
     }
 
     /**
@@ -28,15 +31,38 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = FacadesValidator::make($request->all(), [
+            'name'=>'required|max:100',
+            'country'=>'required|max:100',
+            'birthdate'=>'required|date|before_or_equal:today'
+        ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+
+        $new_director = new Director();
+
+        $new_director->dir_name = $request->input('name');
+        $new_director->dir_country = $request->input('country');
+        $new_director->dir_birthdate = $request->input('birthdate');
+
+        $new_director->save();
+
+        $director = $new_director;
+
+        //return redirect()->back();
+        return view('admin.directors.show', compact('director'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Director $director)
+    public function show($id)
     {
-        //
+        $director = Director::find($id);
+        return view('admin.directors.show', compact('director'));
     }
 
     /**
@@ -44,7 +70,8 @@ class DirectorController extends Controller
      */
     public function edit(Director $director)
     {
-        //
+        $title = "Administra el Director";
+        return view('admin.directors.manage',compact('director', 'title'));
     }
 
     /**
@@ -52,7 +79,23 @@ class DirectorController extends Controller
      */
     public function update(Request $request, Director $director)
     {
-        //
+        $validator = FacadesValidator::make($request->all(), [
+            'name'=>'required|max:100',
+            'country'=>'required|max:100',
+            'birthdate'=>'required|date|before_or_equal:today'
+        ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $director->dir_name = $request->input('name');
+        $director->dir_country = $request->input('country');
+        $director->dir_birthdate = $request->input('birthdate');
+
+        $director->save();
+
+        return view('admin.directors.show', compact('director'));
     }
 
     /**
@@ -60,6 +103,7 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->delete();
+        return redirect()->route('directors.index');
     }
 }

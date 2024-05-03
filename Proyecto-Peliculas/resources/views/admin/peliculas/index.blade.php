@@ -17,7 +17,7 @@
         </a>
       </div>
 
-      <div class="bg-gray-800 rounded-lg pb-1 text-white" style="display: flex; flex-wrap: wrap">
+      <div class="bg-gray-800 rounded-lg pb-1 index-container text-white">
         @foreach($peliculas as $pelicula)
         <div class="bg-gray-700 rounded-lg shadow-md px-2 py-2" style="width: 50%; padding: 10px;">
           <h4>{{ $pelicula->peli_title }}<br><span>{{ $pelicula->peli_length }} min</span></h4>
@@ -28,7 +28,6 @@
 
           <div class="iflex">
             <a href="{{route('peliculas.show', $pelicula->id)}}" style="color:lightcoral">Más Información</a>
-            <a style="color:lightblue; padding-left: 100px">Me Gusta</a>
           </div>
 
         </div>

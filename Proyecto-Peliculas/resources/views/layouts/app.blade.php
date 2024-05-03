@@ -44,8 +44,8 @@
                 {{ $slot }}
             </main>
 
-            <div class="columns column1">
-                <img class="element-row poster" src="{{ asset('assets/images/poster4.jpg') }}" alt="poster2">
+            <div class="columns">
+                <img class=" element-row poster" src="{{ asset('assets/images/poster4.jpg') }}" alt="poster2">
                 <img class="element-row poster" src="{{ asset('assets/images/poster1.jpg') }}" alt="poster4">
             </div>
             </div>
