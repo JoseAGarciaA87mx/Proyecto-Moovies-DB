@@ -61,7 +61,7 @@ class DirectorController extends Controller
      */
     public function show($id)
     {
-        $director = Director::find($id);
+        $director = Director::withCount('peliculas')->find($id);
         return view('admin.directors.show', compact('director'));
     }
 
@@ -95,7 +95,7 @@ class DirectorController extends Controller
 
         $director->save();
 
-        return view('admin.directors.show', compact('director'));
+        return redirect()->route('directors.show', $director->id);
     }
 
     /**

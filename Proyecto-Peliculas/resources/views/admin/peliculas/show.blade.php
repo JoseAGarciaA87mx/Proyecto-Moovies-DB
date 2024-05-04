@@ -16,6 +16,7 @@
 
                     <ul class="show-field">
                         <li><span class="show-label"> Productora: </span> {{ $pelicula->peli_studio }}</li>
+                        <li><span class="show-label"> Director: <a href="{{route('directors.show', $pelicula->director->id)}}" class="show-href">  {{ $pelicula->director->dir_name }} </a></span> </li>
                         <li><span class="show-label"> País de Origen: </span> {{ $pelicula->peli_country }}</li>
                         <li><span class="show-label"> Género: </span> {{ $pelicula->peli_genre }}</li>
                         <li><span class="show-label"> Duración: </span> {{ $pelicula->peli_length }} min</li>

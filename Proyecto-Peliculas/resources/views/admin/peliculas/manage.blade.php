@@ -24,7 +24,20 @@
                             <input class="form-input" type="text" name="title" id="title" value="{{$pelicula->peli_title}}"><br>
                         </div>
 
-                        <!-- Aquí Pongo lo de Directores-->
+                        <div class="dropdown">
+                            <label class="text-white form-label" for="director">Director</label>
+
+                            @error('director')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <select class="form-dropdown" name="director" id="director">
+                                <option value="{{$pelicula->director->id}}">{{$pelicula->director->dir_name}}</option>
+                                @foreach ($directors as $director)
+                                <option value="{{$director->id}}">{{$director->dir_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <div class="text-base p-2">
                             <label class="form-label text-white" for="studio">Productora:</label>

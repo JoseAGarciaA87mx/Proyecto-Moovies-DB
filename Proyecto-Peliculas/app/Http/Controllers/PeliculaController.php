@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Director;
 use App\Models\Pelicula;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use PhpParser\Node\Scalar\MagicConst\Dir;
 
 class PeliculaController extends Controller
 {
@@ -23,17 +25,12 @@ class PeliculaController extends Controller
      */
     public function create()
     {
-        /* poner en la view: admin.peliculas.edit y admin.peliculas.manage
-                <div class = "dropdown">
-                    <label for="director_id">Director</label>
-                        <select name="director_id" id="director_id">
-                             @foreach ($directors as $director)
-                                <option value="{{$director->id}}">{{$director->dir_name}}</option>
-                             @endforeach
-                        </select><br>
-                </div> */
-        //$directores = Director::get();
-        return view('admin.peliculas.create',/*compact('directores')*/);
+        //coloca al director desconocido al inicio
+        $directors = Director::find(1);
+        $directors = collect([$directors])
+            ->concat(Director::where('id', '!=', 1)->orderBy('dir_name', 'ASC')->get(['id', 'dir_name']));
+
+        return view('admin.peliculas.create',compact('directors'));
     }
 
     /**
@@ -45,6 +42,7 @@ class PeliculaController extends Controller
 
         $validator = FacadesValidator::make($request->all(), [
             'title'=>'required|max:100',
+            'director'=>'required|integer|min:1',
             'studio'=>'required|max:100',
             'length'=>'required|integer',
             'genre'=>'required|max:100',
@@ -65,6 +63,8 @@ class PeliculaController extends Controller
         $new_movie->peli_genre = $request->input('genre');
         $new_movie->peli_year = $request->input('year');
         $new_movie->peli_country = $request->input('country');
+        
+        $new_movie->director_id = $request->input('director');
 
         $new_movie->save();
 
@@ -78,8 +78,7 @@ class PeliculaController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $pelicula = Pelicula::find($id);
+    { $pelicula = Pelicula::with('director')->find($id);
         return view('admin.peliculas.show', compact('pelicula'));
     }
 
@@ -88,8 +87,18 @@ class PeliculaController extends Controller
      */
     public function edit(Pelicula $pelicula)
     {
+        $directors=null;
+        $other_directors = Director::where('id', '!=', 1)->where('id', '!=', $pelicula->director->id)->orderBy('dir_name', 'ASC')->get(['id', 'dir_name']);
+        
+        if($pelicula->director->id != 1){
+            $directors = Director::find(1);
+            $directors = collect([$directors])->concat($other_directors);
+        }else{
+            $directors = $other_directors;
+        }
+
         $title = "Administra la Película";
-        return view('admin.peliculas.manage',compact('pelicula', 'title'));
+        return view('admin.peliculas.manage',compact('pelicula', 'directors', 'title'));
     }
 
     /**
@@ -99,6 +108,7 @@ class PeliculaController extends Controller
     {
         $validator=FacadesValidator::make($request->all(), [
             'title'=>'required|max:255',
+            'director'=>'required|integer|min:1',
             'studio'=>'required|max:255',
             'length'=>'required|integer',
             'genre'=>'required|max:255',
@@ -117,9 +127,11 @@ class PeliculaController extends Controller
         $pelicula->peli_year = $request->input('year');
         $pelicula->peli_country = $request->input('country');
 
+        $pelicula->director_id = $request->input('director');
+
         $pelicula->save();
 
-        return view('admin.peliculas.show', compact('pelicula'));
+        return redirect()->route('peliculacontroller.show', $pelicula->id);
     }
 
     /**

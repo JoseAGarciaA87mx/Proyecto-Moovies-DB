@@ -86,7 +86,16 @@
     border: 1px solid #ccc; 
     border-radius: 5px; 
     margin-bottom: 10px; 
-    background-color: lightskyblue;
+}
+
+.form-dropdown {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+    max-height: 200px; 
+    overflow-y: auto;
 }
 
 .form-button {
@@ -118,6 +127,13 @@
     text-align: left;
     font-size: 20px;
     color: lightseagreen;
+    padding: 10px 20px;
+}
+
+.show-href{
+    text-align: left;
+    font-size: 20px;
+    color: #007bff;
     padding: 10px 20px;
 }
 

@@ -13,19 +13,19 @@
 
       <div class="p-2 boton">
         <a href="{{route('directors.create')}}" class="p-2 rounded" style="color:black; display: inline-flex; width:100%;">
-          <x-zondicon-add-outline class="h-10 w-10 "/><p class="p-2">Registrar Nuevo Director</p>
+          <x-zondicon-add-outline class="h-10 w-10 " />
+          <p class="p-2">Registrar Nuevo Director</p>
         </a>
       </div>
 
       <div class="bg-gray-800 rounded-lg pb-1 text-white">
         @foreach($directors as $director)
-        <div class="bg-gray-700 rounded-lg shadow-md px-2 py-2" style="width: 50%; padding: 10px;">
-          <h4>{{ $director->dir_name }}<br><span>{{ $director->dir_country }}</span></h4>
-
-          <div class="iflex">
-            <a href="{{route('directors.show', $director->id)}}" style="color:lightcoral">Más Información</a>
-          </div>
-
+        <div class="bg-gray-700 rounded-lg shadow-md px-2 py-2">
+          <h4 style="display: flex; justify-content: space-between;">
+            <span>{{ $director->dir_name }}</span>
+            <span>{{ $director->dir_country }}</span>
+          </h4>
+          <a href="{{route('directors.show', $director->id)}}" style="color:lightcoral">Más Información</a>
         </div>
         @endforeach
       </div>

@@ -17,6 +17,13 @@
                     <ul class="show-field">
                         <li><span class="show-label"> País de Origen: </span> {{ $director->dir_country }}</li>
                         <li><span class="show-label"> Fecha de Nacimiento: </span> {{ $director->dir_birthdate }}</li>
+                        <li><span class="show-label"> Peliculas Registradas: </span> 
+                            @if($director->peliculas_count)
+                            {{ $director->peliculas_count }}
+                            @else
+                            0
+                            @endif
+                        </li>
                     </ul>
 
                     <div class="boton text-white text-center" style="width: 100%;">
