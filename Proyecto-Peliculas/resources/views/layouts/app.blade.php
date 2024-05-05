@@ -51,7 +51,7 @@
             </div>
         </div>
         <footer style="color: white; background-color: black;">
-                Movies-Project JAGA 20214. Programación Para Internet D-12 Proyecto 2
+                Movies-Project JAGA 2024. Programación Para Internet D-12 Proyecto 2
         </footer>
 
         @stack('modals')

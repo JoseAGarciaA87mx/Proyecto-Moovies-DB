@@ -156,3 +156,14 @@
         flex-wrap: nowrap;
     }
 }
+
+.review_container {
+    background-color: #244c7d ;
+    color: #cbd2d9;
+    padding: 10px; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+    border: 1px solid #333;
+    word-wrap: break-word;
+    max-width: 800px;
+}

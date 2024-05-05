@@ -32,7 +32,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::post('/peliculas/{pelicula}/store_comment', [PeliculaController::class, 'store_comment'])
+        ->name('peliculas.store_comment');
+    Route::put('/peliculas/{pelicula}/update_comment', [PeliculaController::class, 'update_comment'])
+        ->name('peliculas.update_comment');
+    Route::delete('/peliculas/{pelicula}/delete_comment', [PeliculaController::class, 'delete_comment'])
+        ->name('peliculas.delete_comment');
     Route::resource('peliculas', PeliculaController::class);
+    
 
     Route::resource('directors', DirectorController::class);
 });

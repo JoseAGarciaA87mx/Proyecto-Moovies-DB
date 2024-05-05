@@ -95,7 +95,7 @@ class DirectorController extends Controller
 
         $director->save();
 
-        return redirect()->route('directors.show', $director->id);
+        return redirect()->route('directors .show', $director->id);
     }
 
     /**

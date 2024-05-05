@@ -30,5 +30,15 @@
                 </div>
             </div>
         </div>
+
+        @if($userReview == null)
+            <x-create-peliculas-users :pelicula="$pelicula" />
+            
+        @else 
+            <br>
+            <x-manage-peliculas-users :pelicula="$pelicula" :userReview="$userReview"/>
+        @endif
+        <br>
+        <x-every-review-peliculas-users :reviews="$reviews" />
     </div>
 </x-app-layout>

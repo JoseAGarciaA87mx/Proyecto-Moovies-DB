@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use App\Models\Pelicula;
+use App\Models\PeliculaUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Scalar\MagicConst\Dir;
+
+use function PHPUnit\Framework\isEmpty;
 
 class PeliculaController extends Controller
 {
@@ -78,8 +83,32 @@ class PeliculaController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    { $pelicula = Pelicula::with('director')->find($id);
-        return view('admin.peliculas.show', compact('pelicula'));
+    { 
+        $pelicula = Pelicula::with('director')->findOrFail($id);
+        $userReview = null;
+        $logged_user_id =  Auth::id();
+
+        $reviews = $pelicula->users()->withPivot('rating', 'review', 'updated_at')
+            ->orderBy('pivot_rating', 'desc')->get();     
+
+        if($reviews->isEmpty()){
+            $reviews = null;
+
+        } else {
+            $collection_index = 0;
+            foreach($reviews as $review){
+                if($review->id == $logged_user_id){
+                    $userReview = $review;
+
+                    $reviews->forget($collection_index);
+
+                    break;
+                }
+                $collection_index ++;
+            }
+        }
+
+        return view('admin.peliculas.show', compact('pelicula','reviews', 'userReview'));
     }
 
     /**
@@ -131,7 +160,7 @@ class PeliculaController extends Controller
 
         $pelicula->save();
 
-        return redirect()->route('peliculacontroller.show', $pelicula->id);
+        return view('admin.peliculas.show', compact('pelicula'));
     }
 
     /**
@@ -141,5 +170,57 @@ class PeliculaController extends Controller
     {
         $pelicula->delete();
         return redirect()->route('peliculas.index');
+    }
+
+    public function store_comment(Request $request, $pelicula_id){
+        $validator = FacadesValidator::make($request->all(), [
+            'rating'=>'required|min:0|max:100',
+            'review'=>'required|max:255'
+        ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::find(Auth::id());
+
+        $user->peliculas()->attach($pelicula_id, [
+            'rating' => $request->input('rating'),
+            'review' => $request->input('review'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('peliculas.show', $pelicula_id);
+    }
+
+    public function update_comment(Request $request, $pelicula_id){
+        $validator = FacadesValidator::make($request->all(), [
+            'rating'=>'required|min:0|max:100',
+            'review'=>'required|max:255'
+        ]);
+
+        if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::find(Auth::id());
+
+        $user->peliculas()->updateExistingPivot($pelicula_id, [
+            'rating' => $request->input('rating'),
+            'review' => $request->input('review'),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('peliculas.show', $pelicula_id);
+    }
+
+    public function delete_comment(Request $request, $pelicula_id){
+
+        $user = User::find(Auth::id());
+
+        $user->peliculas()->detach($pelicula_id);
+
+        return redirect()->route('peliculas.show', $pelicula_id);
     }
 }
