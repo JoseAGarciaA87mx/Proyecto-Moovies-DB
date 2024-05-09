@@ -9,6 +9,10 @@ class PeliculaUser extends Model
 {
     use HasFactory;
 
+
+    protected $table = 'pelicula_user';
+
+
     public function user(){
         return $this->belongsTo(User::class);
     }

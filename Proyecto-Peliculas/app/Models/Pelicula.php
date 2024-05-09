@@ -9,6 +9,7 @@ class Pelicula extends Model
 {
     use HasFactory;
 
+    protected $dates = ['peli_year','created_at','updated_at'];
     public function director()
     {
         return $this->belongsTo(Director::class);

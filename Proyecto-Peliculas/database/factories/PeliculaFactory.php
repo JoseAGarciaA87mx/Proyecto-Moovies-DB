@@ -17,14 +17,13 @@ class PeliculaFactory extends Factory
     public function definition(): array
     {
         return [
-            'peli_title' => $this->faker->word(),
-            'peli_title' => $this->faker->word(),
-            'peli_studio' => ,
-            'peli_length' => '',
-            'peli_genre' => '',
-            'peli_year' => '',
-            'peli_country' => '',
-            'director_id' => ''
+            'peli_title' => $this->faker->sentence(),
+            'peli_studio' => $this->faker->sentence(),
+            'peli_length' => $this->faker->numberBetween(30, 250),
+            'peli_genre' => $this->faker->word(),
+            'peli_year' => $this->faker->year(),
+            'peli_country' => $this->faker->country(),
+            'director_id' => $this->faker->numberBetween(4, 12)
         ];
     }
 }

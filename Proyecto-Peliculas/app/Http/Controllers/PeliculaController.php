@@ -218,6 +218,18 @@ class PeliculaController extends Controller
      */
     public function destroy(Pelicula $pelicula)
     {
+        $url = $pelicula->image_url;
+        if($url != null){
+            $mini_url = 'storage/miniposters'.substr($url, 16);
+            if(Storage::disk('public')->exists($mini_url)){
+                Storage::disk('public')->delete($mini_url);
+            }
+            
+            if (Storage::disk('public')->exists($url)) {
+                Storage::disk('public')->delete($url);                
+            }
+        }
+
         $pelicula->delete();
         return redirect()->route('peliculas.index');
     }
