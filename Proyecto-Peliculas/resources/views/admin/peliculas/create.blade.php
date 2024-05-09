@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="main-frame">
-                    <form class="form-container" action="{{route('peliculas.store')}}" method="POST">
+                    <form class="form-container" action="{{route('peliculas.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="text-base p-2">
                             <label class="text-white form-label" for="title">Título: </label>
@@ -109,7 +109,17 @@
                             @endif
                         </div>
 
-                        <div class="boton">
+                        <div  class="text-base p-2">
+                            <label class="text-white form-label" for="image">Selecciona Una Imagen de Poster </label> 
+                            @if($errors->has('image'))
+                            <span class="text-danger">{{ $errors->first('image') }}</span>
+                            @endif
+                            <input class="file-input" type="file" name="image" id="image" require="false" accept="image/*">
+                            
+                        </div>
+                        
+
+                        <div class="boton p-2">
                             <button class="iflex" type="submit">Registrar <x-zondicon-film class="h-10 w-10 p-2" /></button>
                         </div>
 

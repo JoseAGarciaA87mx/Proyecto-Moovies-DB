@@ -14,6 +14,13 @@
                         <h1 style="color: lightcoral; font-size: 32px;">{{ $pelicula->peli_title }}</h1>
                     </div>
 
+                    <div class="form-label">
+                        <img src="{{ asset($pelicula->image_url) }}" alt="$pelicula->image_url">
+                        <div class="boton text-white text-center" style="width: 100%;">
+                        <a class="iflex" href="{{ asset($pelicula->image_url) }}">Descargar Poster <x-zondicon-download class="h-10 w-10 p-2" /></a>
+                        </div>
+                    </div>
+
                     <ul class="show-field">
                         <li><span class="show-label"> Productora: </span> {{ $pelicula->peli_studio }}</li>
                         <li><span class="show-label"> Director: <a href="{{route('directors.show', $pelicula->director->id)}}" class="show-href">  {{ $pelicula->director->dir_name }} </a></span> </li>

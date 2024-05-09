@@ -40,7 +40,6 @@ class DirectorController extends Controller
         if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
 
         $new_director = new Director();
 

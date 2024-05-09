@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 
 use function PHPUnit\Framework\isEmpty;
@@ -20,7 +21,15 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::get(['id','peli_title', 'peli_genre', 'peli_year', 'peli_length']);
+        $peliculas = Pelicula::get(['id','peli_title', 'peli_genre', 'peli_year', 'peli_length', 'image_url']);
+
+        foreach($peliculas as $pelicula){
+            if($pelicula->image_url!=null){
+                $pelicula->image_url = 'storage/miniposters'.substr($pelicula->image_url, 16);
+            } else {
+                $pelicula->image_url = 'storage/miniposters/HTTvejiPAfHYp81ECgiM3VVBvzkh2NVwWIvcuqoQ.jpg';
+            }
+        }
 
         return view('admin.peliculas.index', compact('peliculas'));
     }
@@ -53,6 +62,7 @@ class PeliculaController extends Controller
             'genre'=>'required|max:100',
             'year'=>'required|integer|min:1900|max:2100',
             'country'=>'required|max:100',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:10000' // Máximo 25 Megas, no oblugatorio
         ]);
 
         if($validator->fails()){  // si se falla una regla de validación se retorna al formulario con los errores
@@ -71,12 +81,48 @@ class PeliculaController extends Controller
         
         $new_movie->director_id = $request->input('director');
 
+        if($request->hasFile('image')){
+            $image_path = $request->file('image')->store('public/posters');
+            $url = Storage::url($image_path);
+            $new_movie->image_url = $url;
+
+            //crear el mini con php gd 
+            $extension = strtolower(pathinfo($image_path, PATHINFO_EXTENSION));
+            $mini_url = 'storage/miniposters'.substr($url, 16);
+            $imagen_original = null;
+
+            if ($extension === 'jpg' || $extension === 'jpeg') {
+                $imagen_original = imagecreatefromjpeg(public_path($url));
+
+            } elseif ($extension === 'png') {
+                $imagen_original = imagecreatefrompng(public_path($url));
+
+            }
+
+            $ancho_original = imagesx($imagen_original);
+            $alto_original = imagesy($imagen_original);
+
+            $nuevo_ancho = intval($ancho_original * 0.20);
+            $nuevo_alto = intval($alto_original * 0.20);
+
+            $nueva_imagen = imagecreatetruecolor($nuevo_ancho, $nuevo_alto);
+
+            imagecopyresampled($nueva_imagen, $imagen_original, 0, 0, 0, 0, 
+                $nuevo_ancho, $nuevo_alto, 
+                $ancho_original, $alto_original);
+
+            imagejpeg($nueva_imagen, $mini_url);
+
+            imagedestroy($nueva_imagen);
+            imagedestroy($imagen_original);
+        }
+
         $new_movie->save();
 
-        $pelicula = $new_movie;
+        $pelicula_id = $new_movie->id;
 
         //return redirect()->back();
-        return view('admin.peliculas.show', compact('pelicula'));
+        return redirect()->route('peliculas.show', $pelicula_id);
     }
 
     /**
@@ -87,6 +133,10 @@ class PeliculaController extends Controller
         $pelicula = Pelicula::with('director')->findOrFail($id);
         $userReview = null;
         $logged_user_id =  Auth::id();
+
+        if($pelicula->image_url == null){
+            $pelicula->image_url = 'storage/posters/HTTvejiPAfHYp81ECgiM3VVBvzkh2NVwWIvcuqoQ.jpg';
+        }
 
         $reviews = $pelicula->users()->withPivot('rating', 'review', 'updated_at')
             ->orderBy('pivot_rating', 'desc')->get();     
@@ -215,7 +265,7 @@ class PeliculaController extends Controller
         return redirect()->route('peliculas.show', $pelicula_id);
     }
 
-    public function delete_comment(Request $request, $pelicula_id){
+    public function delete_comment($pelicula_id){
 
         $user = User::find(Auth::id());
 
