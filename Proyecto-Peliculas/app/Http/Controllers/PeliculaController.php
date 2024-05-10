@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use App\Models\Pelicula;
-use App\Models\PeliculaUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Scalar\MagicConst\Dir;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -236,7 +234,9 @@ class PeliculaController extends Controller
     }
 
     public function store_comment(Request $request, $pelicula_id){
-
+        if ( ! Gate::allows('create-comment', $pelicula_id)) {
+            abort(403);
+        }
 
         $validator = FacadesValidator::make($request->all(), [
             'rating'=>'required|min:0|max:100',
@@ -286,6 +286,9 @@ class PeliculaController extends Controller
     }
 
     public function delete_comment($pelicula){
+        if (! Gate::allows('update-comment', $pelicula)) {
+            abort(403);
+        }
 
         $user = User::find(Auth::id());
 

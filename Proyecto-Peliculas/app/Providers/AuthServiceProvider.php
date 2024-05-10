@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //Gate para evitar que existan relaciones n:m duplicadas
         Gate::define('create-comment', function(User $user, $pelicula_id) {
-            return !($user->peliculas()->where('pelicula_id', $pelicula_id)->exists());
+            return ! $user->peliculas()->where('pelicula_id', $pelicula_id)->exists();
         });
     }
 }

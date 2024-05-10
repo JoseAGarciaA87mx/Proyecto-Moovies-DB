@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('peliculas', function (Blueprint $table) {
             $table->id();
             $table->string('peli_title', length:255);
-            $table->foreignId('director_id')->constrained();
+            //$table->foreignId('director_id')->constrained();
             $table->string('peli_studio', length:255);
             $table->smallInteger('peli_length');
             $table->string('peli_genre', length:255);

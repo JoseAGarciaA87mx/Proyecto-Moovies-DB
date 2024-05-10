@@ -52,7 +52,7 @@ class DirectorController extends Controller
         $director = $new_director;
 
         //return redirect()->back();
-        return view('admin.directors.show', compact('director'));
+        return redirect()->route('directors.show', $director->id);
     }
 
     /**
@@ -94,7 +94,7 @@ class DirectorController extends Controller
 
         $director->save();
 
-        return redirect()->route('directors .show', $director->id);
+        return redirect()->route('directors.show', $director->id);
     }
 
     /**

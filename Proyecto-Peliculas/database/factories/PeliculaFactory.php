@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Pelicula;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PeliculaFactory extends Factory
 {
+    protected $model = Pelicula::class;
     /**
      * Define the model's default state.
      *
@@ -23,7 +25,7 @@ class PeliculaFactory extends Factory
             'peli_genre' => $this->faker->word(),
             'peli_year' => $this->faker->year(),
             'peli_country' => $this->faker->country(),
-            'director_id' => $this->faker->numberBetween(4, 12)
+            'director_id' => $this->faker->numberBetween(1, 12)
         ];
     }
 }

@@ -11,11 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::table('peliculas', function (Blueprint $table) {
-            $table->dropColumn('director_id');
-        });
-
         Schema::table('peliculas', function (Blueprint $table) {
             $table->foreignId('director_id')
                 ->default(1) //el default forzosamente debe de ir antes que el constrained

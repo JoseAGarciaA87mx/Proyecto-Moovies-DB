@@ -13,6 +13,6 @@ class PeliculaUserFactorySeeder extends Seeder
      */
     public function run(): void
     {
-        PeliculaUser::factory(30)->create();
+        PeliculaUser::factory(40)->create();
     }
 }
