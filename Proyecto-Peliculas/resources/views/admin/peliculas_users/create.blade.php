@@ -13,9 +13,9 @@
                     <label class="text-white form-label" for="rating">Calificación: </label>
                     @if($errors->has('rating'))
                     <span class="text-danger">{{ $errors->first('rating') }}</span>
-                    <input class="form-input" type="number" name="rating" id="rating">
+                    <input class="form-input" type="number" name="rating" id="rating" pattern="[0-9]+" required min="0" max="100">
                     @else
-                    <input class="form-input" type="number" name="rating" id="rating" value="{{ old('rating') }}">
+                    <input class="form-input" type="number" name="rating" id="rating" pattern="[0-9]+" required min="0" max="100" value="{{ old('rating') }}">
                     @endif
                 </div>
 
@@ -23,9 +23,9 @@
                     <label class="text-white form-label" for="review">Reseña: </label>
                     @if($errors->has('review'))
                     <span class="text-danger">{{ $errors->first('review') }}</span>
-                    <textarea class="form-input" id="review" name="review" rows="4" maxlength="255"></textarea>
+                    <textarea class="form-input" id="review" name="review" rows="4" maxlength="255" required></textarea>
                     @else
-                    <textarea class="form-input" id="review" name="review" rows="4" maxlength="255" value="{{ old('review') }}"></textarea>
+                    <textarea class="form-input" id="review" name="review" rows="4" maxlength="255" required value="{{ old('review') }}"></textarea>
                     @endif
                 </div>
 

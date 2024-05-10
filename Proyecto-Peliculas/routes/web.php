@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\PeliculaController;
+use App\Http\Controllers\GenericController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,8 +41,12 @@ Route::middleware([
     Route::delete('/peliculas/{pelicula}/delete_comment', [PeliculaController::class, 'delete_comment'])
         ->name('peliculas.delete_comment');
     Route::resource('peliculas', PeliculaController::class);
-    
 
     Route::resource('directors', DirectorController::class);
+
+    Route::get('/misreseñas', [GenericController::class, 'index'])
+    ->name('users.index');
+    Route::get('/peliculas/{user_id}/misreseñas', [GenericController::class, 'show_reviews_form_user'])
+    ->name('users.reviews');
 });
 

@@ -8,7 +8,7 @@
 
     <div class="text-white text-center">Última Modificación: <span style="color:gray"> {{ $userReview->pivot->updated_at}} </span></div>
 
-    <form class="form-container" action="{{route('peliculas.update_comment', $pelicula->id)}}" method="POST">
+    <form class="form-container" action="{{route('peliculas.update_comment', $pelicula)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="text-base p-2">
@@ -16,7 +16,7 @@
             @error('review')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-            <input class="form-input" type="number" name="rating" id="rating" value="{{ $userReview->pivot->rating }}">
+            <input class="form-input" type="number" name="rating" id="rating" pattern="[0-9]+" required min="0" max="100"value="{{ $userReview->pivot->rating }}">
         </div>
 
         <div class="text-base p-2">
@@ -24,7 +24,7 @@
             @error('review')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-            <textarea class="form-input" id="review" name="review" rows="4" maxlength="255">{{ $userReview->pivot->review }}</textarea>
+            <textarea class="form-input" id="review" name="review" rows="4" maxlength="255" required>{{ $userReview->pivot->review }}</textarea>
         </div>
 
         <div class="boton" style="width: 100%;">
@@ -32,7 +32,7 @@
         </div>
     </form>
 
-    <form class="form-container text-center" action="{{route('peliculas.delete_comment', $pelicula->id)}}" method="POST">
+    <form class="form-container text-center" action="{{route('peliculas.delete_comment', $pelicula)}}" method="POST">
         @csrf
         @method('DELETE')
         <div class="boton2 iflex" style="width: 100%;">

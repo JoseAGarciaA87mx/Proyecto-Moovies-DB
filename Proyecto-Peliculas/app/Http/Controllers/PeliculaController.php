@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 
@@ -224,7 +225,7 @@ class PeliculaController extends Controller
             if(Storage::disk('public')->exists($mini_url)){
                 Storage::disk('public')->delete($mini_url);
             }
-            
+
             if (Storage::disk('public')->exists($url)) {
                 Storage::disk('public')->delete($url);                
             }
@@ -235,6 +236,8 @@ class PeliculaController extends Controller
     }
 
     public function store_comment(Request $request, $pelicula_id){
+
+
         $validator = FacadesValidator::make($request->all(), [
             'rating'=>'required|min:0|max:100',
             'review'=>'required|max:255'
@@ -256,9 +259,14 @@ class PeliculaController extends Controller
         return redirect()->route('peliculas.show', $pelicula_id);
     }
 
-    public function update_comment(Request $request, $pelicula_id){
+    public function update_comment(Request $request, $pelicula){
+
+        if (! Gate::allows('update-comment', $pelicula)) {
+            abort(403);
+        }
+
         $validator = FacadesValidator::make($request->all(), [
-            'rating'=>'required|min:0|max:100',
+            'rating'=>'required|integer|min:0|max:100',
             'review'=>'required|max:255'
         ]);
 
@@ -268,21 +276,21 @@ class PeliculaController extends Controller
 
         $user = User::find(Auth::id());
 
-        $user->peliculas()->updateExistingPivot($pelicula_id, [
+        $user->peliculas()->updateExistingPivot($pelicula, [
             'rating' => $request->input('rating'),
             'review' => $request->input('review'),
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('peliculas.show', $pelicula_id);
+        return redirect()->route('peliculas.show', $pelicula);
     }
 
-    public function delete_comment($pelicula_id){
+    public function delete_comment($pelicula){
 
         $user = User::find(Auth::id());
 
-        $user->peliculas()->detach($pelicula_id);
+        $user->peliculas()->detach($pelicula);
 
-        return redirect()->route('peliculas.show', $pelicula_id);
+        return redirect()->route('peliculas.show', $pelicula);
     }
 }

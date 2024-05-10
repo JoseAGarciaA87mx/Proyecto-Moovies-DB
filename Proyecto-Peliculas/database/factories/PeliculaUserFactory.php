@@ -21,7 +21,6 @@ class PeliculaUserFactory extends Factory
         $user_id = User::inRandomOrder()->first()->id;
         $pelicula_id = Pelicula::inRandomOrder()->first()->id;
         
-
         return [
             'rating' => $this->faker->numberBetween(0,100), 
             'review' => $this->faker->text(255).'.',

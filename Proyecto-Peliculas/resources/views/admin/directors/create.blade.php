@@ -20,9 +20,9 @@
                             <label class="text-white form-label" for="name">Nombre del Director: </label>
                             @if($errors->has('name'))
                             <span class="text-danger">{{ $errors->first('name') }}</span>
-                            <input class="form-input" type="text" name="name" id="name">
+                            <input class="form-input" type="text" name="name" id="name" required maxlength="100">
                             @else
-                            <input class="form-input" type="text" name="name" id="name" value="{{ old('name') }}">
+                            <input class="form-input" type="text" name="name" id="name" required maxlength="100" value="{{ old('name') }}">
                             @endif
                         </div>
 
@@ -30,9 +30,9 @@
                             <label class="text-white form-label" for="country">País de Origen: </label>
                             @if($errors->has('country'))
                             <span class="text-danger">{{ $errors->first('country') }}</span>
-                            <input class="form-input" type="text" name="country" id="country">
+                            <input class="form-input" type="text" name="country" id="country" required maxlength="100">
                             @else
-                            <input class="form-input" type="text" name="country" id="country" value="{{ old('country') }}">
+                            <input class="form-input" type="text" name="country" id="country" required maxlength="100" value="{{ old('country') }}">
                             @endif
                         </div>
 
@@ -40,9 +40,9 @@
                             <label class="text-white form-label" for="birthdate">Fecha de Nacimiento: </label>
                             @if($errors->has('birthdate'))
                             <span class="text-danger">{{ $errors->first('birthdate') }}</span>
-                            <input class="form-input" type="date" name="birthdate" id="birthdate">
+                            <input class="form-input" type="date" name="birthdate" id="birthdate" max="{{ date('Y-m-d') }}" required>
                             @else
-                            <input class="form-input" type="date" name="birthdate" id="birthdate" value="{{ old('birthdate') }}">
+                            <input class="form-input" type="date" name="birthdate" id="birthdate" max="{{ date('Y-m-d') }}" required value="{{ old('birthdate') }}">
                             @endif
                         </div>
 
