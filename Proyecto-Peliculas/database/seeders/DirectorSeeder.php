@@ -26,6 +26,7 @@ class DirectorSeeder extends Seeder
             ['dir_name' => 'Andrew Stanton', 'dir_country' => 'Estados Unidos', 'dir_birthdate' => '1965-12-03', 'created_at' => '2024-05-03 23:42:06', 'updated_at'=> '2024-05-03 23:42:06'],
             ['dir_name' => 'Peter Jackson', 'dir_country' => 'Nueva Zelanda', 'dir_birthdate' => '1961-08-31', 'created_at' => '2024-05-04 04:13:51', 'updated_at'=> '2024-05-04 04:18:51'],
             ['dir_name' => 'Martin Scorcese', 'dir_country' => 'Estados Unidos', 'dir_birthdate' => '1942-11-17', 'created_at' => '2024-05-08 08:05:58', 'updated_at'=> '2024-05-08 08:05:58'],
+            ['dir_name' => 'Riddley Scott', 'dir_country' => 'Estados Unidos', 'dir_birthdate' => '1937-11-30', 'created_at' => '2024-05-08 08:10:58', 'updated_at'=> '2024-05-08 08:10:58'],
         ];
 
         Director::insert($seeds); //insertar con modelo de eloquent

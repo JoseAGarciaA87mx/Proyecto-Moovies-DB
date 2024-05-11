@@ -219,15 +219,18 @@ class PeliculaController extends Controller
     {
         $url = $pelicula->image_url;
         if($url != null){
-            $mini_url = 'storage/miniposters'.substr($url, 16);
-            if(Storage::disk('public')->exists($mini_url)){
-                Storage::disk('public')->delete($mini_url);
+            $mini_url = 'public/miniposters'.substr($url, 16);
+            if(Storage::exists($mini_url)){
+                Storage::delete($mini_url);
             }
 
-            if (Storage::disk('public')->exists($url)) {
-                Storage::disk('public')->delete($url);                
+            $big_url = 'public/'.substr($url, 9);
+            if (Storage::exists($big_url)) {
+                Storage::delete($big_url);     
             }
         }
+
+        
 
         $pelicula->delete();
         return redirect()->route('peliculas.index');
