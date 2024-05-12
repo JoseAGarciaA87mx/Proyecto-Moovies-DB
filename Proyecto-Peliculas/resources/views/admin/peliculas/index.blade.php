@@ -19,9 +19,9 @@
 
       <div class="bg-gray-800 rounded-lg pb-1 index-container text-white">
         @foreach($peliculas as $pelicula)
-        <div class="bg-gray-700 rounded-lg shadow-md px-2 py-2" style="width: 50%; padding: 10px;">
+        <div class="bg-gray-700 rounded-lg shadow-md px-2 py-2 bg-center" style="width: 50%; padding: 10px;">
           <h3 style="color:goldenrod">{{ $pelicula->peli_title }}</h3>
-          <img src="{{ asset($pelicula->image_url) }}" alt="$pelicula->image_url" width="100" height="150">
+          <img src="{{ asset($pelicula->image_url) }}" alt="$pelicula->image_url" style="height: 200px;">
           <ul>
             <li>{{ $pelicula->peli_length }} min</li>
             <li>{{ $pelicula->peli_genre }}</li>

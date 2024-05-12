@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Director;
 use App\Models\Pelicula;
+use App\Models\PeliculaUser;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
-use function PHPUnit\Framework\isEmpty;
 
 class PeliculaController extends Controller
 {
@@ -20,7 +21,7 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::get(['id','peli_title', 'peli_genre', 'peli_year', 'peli_length', 'image_url']);
+        $peliculas = Pelicula::orderBy('updated_at', 'desc')->get(['id','peli_title', 'peli_genre', 'peli_year', 'peli_length', 'image_url']);
 
         foreach($peliculas as $pelicula){
             if($pelicula->image_url!=null){
@@ -130,6 +131,8 @@ class PeliculaController extends Controller
     public function show($id)
     { 
         $pelicula = Pelicula::with('director')->findOrFail($id);
+        $pelicula->score = (float) PeliculaUser::where('pelicula_id','=',$pelicula->id)->avg('rating');
+        $pelicula->score = number_format((float)$pelicula->score, 2, '.', '');
         $userReview = null;
         $logged_user_id =  Auth::id();
 
@@ -138,7 +141,7 @@ class PeliculaController extends Controller
         }
 
         $reviews = $pelicula->users()->withPivot('rating', 'review', 'updated_at')
-            ->orderBy('pivot_rating', 'desc')->get();     
+            ->orderBy('pivot_rating', 'desc')->get(['name',]); 
 
         if($reviews->isEmpty()){
             $reviews = null;
@@ -146,7 +149,8 @@ class PeliculaController extends Controller
         } else {
             $collection_index = 0;
             foreach($reviews as $review){
-                if($review->id == $logged_user_id){
+
+                if($review->pivot->user_id === $logged_user_id){
                     $userReview = $review;
 
                     $reviews->forget($collection_index);
@@ -250,16 +254,19 @@ class PeliculaController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $rating = $request->input('rating');
+        $review = $request->input('review');
+
         $user = User::find(Auth::id());
 
         $user->peliculas()->attach($pelicula_id, [
-            'rating' => $request->input('rating'),
-            'review' => $request->input('review'),
+            'rating' => $rating,
+            'review' => $review,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('peliculas.show', $pelicula_id);
+        return app(GenericController::class)->send_review_mail($user, $pelicula_id, $review, $rating);
     }
 
     public function update_comment(Request $request, $pelicula){

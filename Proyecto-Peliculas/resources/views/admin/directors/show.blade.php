@@ -2,7 +2,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Detalle de Director') }}
         </h2>
     </x-slot>
 
@@ -25,7 +25,7 @@
                             0
                             @endif
                         </li>
-                    </ul>
+                        </ul>
 
                     <div class="boton text-white text-center" style="width: 100%;">
                         <a class="iflex" href="{{route('directors.edit', $director)}}">Administrar Director <x-zondicon-compose class="h-10 w-10 p-2" /></a>

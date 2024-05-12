@@ -21,24 +21,8 @@
                         <span style="color: gray;">{{ $review->pivot->updated_at }}</span>
                     </h4>
 
-                    <p>Calificación:
-                        @if($review->pivot->rating > 95)
-                        <span style="color:  #0971ed ;">
-                            @elseif($review->pivot->rating > 90)
-                            <span style="color:  #09ed6a ;">
-                                @elseif($review->pivot->rating > 80)
-                                <span style="color:   #6ded09 ;">
-                                    @elseif($review->pivot->rating > 70)
-                                    <span style="color:   #bded09 ;">
-                                        @elseif($review->pivot->rating > 60)
-                                        <span style="color:   #edb909  ;">
-                                            @elseif($review->pivot->rating > 50)
-                                            <span style="color:   #ed6609  ;">
-                                                @else
-                                                <span style="color:   #ed0909   ;">
-                                                    @endif
-
-                                                    {{ $review->pivot->rating }}</span>
+                    <p>
+                        Calificación: <x-rating-color :rating="$review->pivot->rating" />
                     </p>
 
                     <div class="review_container">

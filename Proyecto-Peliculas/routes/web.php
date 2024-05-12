@@ -30,10 +30,12 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
+    //pantalla de inicio
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
+    //peliculas
     Route::post('/peliculas/{pelicula}/store_comment', [PeliculaController::class, 'store_comment'])
         ->name('peliculas.store_comment');
     Route::put('/peliculas/{pelicula}/update_comment', [PeliculaController::class, 'update_comment'])
@@ -42,10 +44,14 @@ Route::middleware([
         ->name('peliculas.delete_comment');
     Route::resource('peliculas', PeliculaController::class);
 
+    //directores
     Route::resource('directors', DirectorController::class);
 
+    //genericos
     Route::get('/misreseñas', [GenericController::class, 'index'])
     ->name('users.index');
+    Route::post('/sendmail', [GenericController::class, 'send_review_mail'])
+    ->name('mail.send_review_mail');
     Route::get('/peliculas/{user_id}/misreseñas', [GenericController::class, 'show_reviews_form_user'])
     ->name('users.reviews');
 });

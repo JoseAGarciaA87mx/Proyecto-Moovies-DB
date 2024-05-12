@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Detalle de Pelicula') }}
         </h2>
     </x-slot>
 
@@ -28,6 +28,7 @@
                         <li><span class="show-label"> Género: </span> {{ $pelicula->peli_genre }}</li>
                         <li><span class="show-label"> Duración: </span> {{ $pelicula->peli_length }} min</li>
                         <li><span class="show-label"> Año de Estreno: </span> {{ $pelicula->peli_year }}</li>
+                        <li><span class="show-label"> Rating de la Comunidad: </span> <x-rating-color :rating="$pelicula->score"/> </li>
                     </ul>
 
                     <div class="boton text-white text-center" style="width: 100%;">

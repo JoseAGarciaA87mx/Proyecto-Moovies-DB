@@ -9,16 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Mailable extends Mailable
+class MailablePersonalizado extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $peli_title, $user_name;
+    public $review;
+
+    public function __construct($peli_title, $user_name, $review)
     {
-        //
+        $this->peli_title = $peli_title;
+        $this->user_name = $user_name;
+        $this->review = $review;
     }
 
     /**
@@ -27,7 +29,7 @@ class Mailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mailable',
+            subject: 'Reseña Publicada<',
         );
     }
 
@@ -37,7 +39,7 @@ class Mailable extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'admin.mails.made_review',
         );
     }
 

@@ -1,3 +1,4 @@
+<!--este archivo se llama como componente en peliculas.show-->
 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg text-center">
