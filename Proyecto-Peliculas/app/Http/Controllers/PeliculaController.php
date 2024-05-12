@@ -213,7 +213,7 @@ class PeliculaController extends Controller
 
         $pelicula->save();
 
-        return view('admin.peliculas.show', compact('pelicula'));
+        return redirect()->route('peliculas.show', $pelicula);
     }
 
     /**

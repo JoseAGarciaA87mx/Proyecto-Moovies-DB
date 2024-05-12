@@ -38,12 +38,12 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-            <form class="hidden sm:-my-px sm:ms-6 sm:flex" method="POST" action="{{ route('logout') }}" x-data>
-                @csrf
-                <x-nav-link href="{{ route('users.index')}}" :active="request()->routeIs('users.reviews')">
+                <form class="hidden sm:-my-px sm:ms-6 sm:flex" method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
+                    <x-nav-link href="{{ route('users.index')}}" :active="request()->routeIs('users.reviews')">
                         {{ __('Salir de la Cuenta') }}
                     </x-nav-link>
-            </form>
+                </form>
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                 <div class="ms-3 relative">
@@ -165,6 +165,24 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="route('peliculas.index') }}" :active="request()->routeIs('peliculas.index')">
+                {{ __('Peliculas') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('directors.index') }}" :active="request()->routeIs('directors.index')">
+                {{ __('Directores') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('users.index')}}" :active="request()->routeIs('users.reviews')">
+                {{ __('Mis Reseñas') }}
             </x-responsive-nav-link>
         </div>
 

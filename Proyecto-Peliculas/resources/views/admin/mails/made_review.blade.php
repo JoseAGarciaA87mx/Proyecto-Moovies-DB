@@ -38,14 +38,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Notificación de Publicación de Reseña</h1>
-        <p>Estimado/a, Miembro <span>{{ $user_name }}</span></p> 
+        <h1 class="h1">Notificación de Publicación de Reseña</h1>
+        <p>Estimado/a Miembro: <span>{{ $user_name }}</span></p> 
         <p>Se ha publicado tu reseña a la película: <strong>{{ $peli_title }}</strong>. ¡Sigamos ayudando a que esta comunidad crezca!</p>
-        <p>Para comenzar, haz clic en el siguiente enlace:</p>
-        <p><a href="{{ route('dashboard') }}">Ir a la página de inicio</a></p>
+        <p>Continúa compartiendo tu opinión haciendo clic en el siguiente enlace:</p>
+        <p><a class="a" href="{{ route('dashboard') }}">Ir a la página de inicio</a></p>
         <p>Gracias por contribuir.</p>
         <p>Saludos,</p>
-        <p>El equipo de tu aplicación</p>
+        <p>El equipo de Movies Project</p>
     </div>
 
     <div class="container">
