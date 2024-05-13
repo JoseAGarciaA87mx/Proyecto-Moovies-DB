@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\MailablePersonalizado;
 use App\Models\Pelicula;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
 
@@ -18,6 +17,22 @@ class GenericController extends Controller
         $user_id= Auth::user()->id;
         return redirect()->route('users.reviews', $user_id);
     }
+
+    public function dashboard()
+    {
+        $peliculas = Pelicula::withCount('users')->take(5)->groupBy('peliculas.id')->orderBy('users_count', 'desc')->get();
+
+        foreach($peliculas as $pelicula){
+            if($pelicula->image_url!=null){
+                $pelicula->image_url = 'storage/miniposters'.substr($pelicula->image_url, 16);
+            } else {
+                $pelicula->image_url = 'storage/miniposters/HTTvejiPAfHYp81ECgiM3VVBvzkh2NVwWIvcuqoQ.jpg';
+            }
+        }
+
+        return view('dashboard', compact('peliculas'));
+    }
+
 
     public function show_reviews_form_user($user_id)
     {

@@ -31,9 +31,7 @@ Route::middleware([
 ])->group(function () {
 
     //pantalla de inicio
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',  [GenericController::class, 'dashboard'])->name('dashboard');
 
     //peliculas
     Route::post('/peliculas/{pelicula}/store_comment', [PeliculaController::class, 'store_comment'])

@@ -19,12 +19,12 @@ class PeliculaUserFactory extends Factory
     public function definition(): array
     {
         $user_id = User::inRandomOrder()->first()->id;
-        $pelicula_id = Pelicula::inRandomOrder()->first()->id;
-        
+        //$pelicula_id = Pelicula::inRandomOrder()->first()->id;
+        $peliculas_id = [11,12,13,17];
         return [
             'rating' => $this->faker->numberBetween(0,100), 
             'review' => $this->faker->text(255).'.',
-            'pelicula_id' => $pelicula_id,
+            'pelicula_id' => $this->faker->randomElement($peliculas_id),
             'user_id' => $user_id
         ];
     }
